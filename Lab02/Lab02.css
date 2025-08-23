@@ -24,25 +24,25 @@ Instructions: The HTML file is complete and images have been provided. The CSS f
 -----------------------------------------------------
 
 PART 1: Using the ELEMENT Selector:
-* Step 1: Target the html BODY element and give it a top and bottom margin of 1rem and a left and right margin of 5rem.
-* Step 2: Target the page title and give it a filter of drop-shadow with x offset of 2 pixels, y offset of 2 pixels, blur of 1 pixel and hex color code of #0f6a9e.(See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
-* Step 3: Target all of the paragraphs and lists on the page to give it a font size of 20 pixels. 
-* Step 4: Target all of the image elements, assign the following:
+Step 1: Target the html BODY element and give it a top and bottom margin of 1rem and a left and right margin of 5rem.
+Step 2: Target the page title and give it a filter of drop-shadow with x offset of 2 pixels, y offset of 2 pixels, blur of 1 pixel and hex color code of #0f6a9e.(See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
+Step 3: Target all of the paragraphs and lists on the page to give it a font size of 20 pixels. 
+Step 4: Target all of the image elements, assign the following:
         * margin (top, right, bottom, and left) of 1 rem
         * border radius of 1rem (See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
         * box shadow with an x offset of 2 pixels, y offset of 2 pixels, blur of 2 pixels, spread radius of 1 pixel, a, rgb color of black with a transparency of 0.5. (See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
-* Step 5: The top image has a caption, give it a font color of rgb(0, 58, 66).
-* Step 6: Align the paragraph in the footer to the center.(See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
+Step 5: The top image has a caption, give it a font color of rgb(0, 58, 66).
+Step 6: Align the paragraph in the footer to the center.(See documentation https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
 
 -----------------------------------------------------
 
 PART 2: Using ID or CLASS Selectors: 
-* Step 1: Notice that there are 2 images at the top, one shorter than the other. In the HTML file, find the ID for the shorter image and give it a property of {display: none;} in the CSS file.
-* Step 2: Now that the shorter image is hidden, when the screen is 500 pixels or less, the shorter image needs to display once again and the longer image needs to be hidden. Go to the last MEDIA QUERY in the CSS file and add the necessary properties to make this happen. If using Chrome, use the Chrome Dev tools to check the web page's responsiveness.
-* Step 3: The caption for the top banner image is not under the image like it should be. Add a property to make the caption wrap under the image using flex.
-* Step 4: In the DIV that has the 4 images, justify the content by putting space around each image.
-* Step 5: Give the DIV that houses the "Top 5 Places to Visit..." a background color of rgb(0, 58, 66) and a border radius of 1 rem.
-* Step 6: The DIV that houses the "Tips and Reccs" appears to be squished when the screen size is less than 1100 pixels. Add to the appropriate MEDIA QUERY a property that will allow the div to wrap down and then justify the contents to the center. Start by taking a look at the CSS for that DIV outside of the MEDIA QUERY to understand how the DIV is behaving.
+ Step 1: Notice that there are 2 images at the top, one shorter than the other. In the HTML file, find the ID for the shorter image and give it a property of {display: none;} in the CSS file.
+ Step 2: Now that the shorter image is hidden, when the screen is 500 pixels or less, the shorter image needs to display once again and the longer image needs to be hidden. Go to the last MEDIA QUERY in the CSS file and add the necessary properties to make this happen. If using Chrome, use the Chrome Dev tools to check the web page's responsiveness.
+ Step 3: The caption for the top banner image is not under the image like it should be. Add a property to make the caption wrap under the image using flex.
+ Step 4: In the DIV that has the 4 images, justify the content by putting space around each image.
+ Step 5: Give the DIV that houses the "Top 5 Places to Visit..." a background color of rgb(0, 58, 66) and a border radius of 1 rem.
+ Step 6: The DIV that houses the "Tips and Reccs" appears to be squished when the screen size is less than 1100 pixels. Add to the appropriate MEDIA QUERY a property that will allow the div to wrap down and then justify the contents to the center. Start by taking a look at the CSS for that DIV outside of the MEDIA QUERY to understand how the DIV is behaving.
 
 -----------------------------------------------------
 
@@ -57,10 +57,11 @@ of the elements on the page can help fix issues with spacing too, especially if 
 
 /* ---UNIVERSAL SELECTOR--- */
 /* OPTIONAL ↓ REMOVE COMMENTS TO SEE RED BORDER:*/
-
+/*
 * {
   border: 1px solid red;
 }
+*/
 
 /* ---ELEMENT SELECTORS--- */
 
@@ -69,17 +70,23 @@ html {
   background: linear-gradient(180deg, #84daf5, #89ffff, #affffa, #ffffff);
 }
 body {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 h1 {
   text-align: center;
+  text-shadow: 2px 2px 5px #0f6a9e;
 }
+
 h2 {
   margin: 4rem auto 1rem auto;
   text-align: center;
 }
 p,
-li {
+li {font-size: 20px;
 }
 ol {
   padding: 20px;
@@ -89,13 +96,18 @@ ol li {
   padding: 10px 0;
 }
 img {
+  margin: 1rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 2px 1px rgba(7, 7, 7,.5);
 }
 figcaption {
   text-align: center;
   font-weight: bold;
+  color: rgb(0,58,66);
 }
 footer {
   margin: 2rem 0 2rem 0;
+  text-align: center;
 }
 
 /* ---CUSTOM CLASS NAME SELECTORS--- */
@@ -103,6 +115,7 @@ footer {
 .banner-div {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 #banner-long {
   max-width: 100%;
@@ -110,10 +123,13 @@ footer {
 }
 #banner-short {
   width: 230px;
+  display: none;
 }
 .img-div {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+
 }
 
 .tips-div {
@@ -126,6 +142,8 @@ footer {
   margin: 5rem auto;
   color: rgb(253, 197, 132);
   padding: 1rem 2rem;
+  background-color: rgb(0, 58, 66);
+  border-radius: 1rem;
 }
 .top-places-div h2 {
   text-align: center;
@@ -142,13 +160,16 @@ footer {
 }
 
 @media only screen and (max-width: 1100px) {
-  .tips-div {
+  .tips-div { 
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
 @media only screen and (max-width: 500px) {
   body {
     margin: 1rem;
+
   }
   p,
   li {
@@ -161,8 +182,15 @@ footer {
     width: 230px;
   }
   #banner-long {
+    display: none;
   }
   #banner-short {
+    display: block;
+  }
+  .banner-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 /* ------------------------- */
