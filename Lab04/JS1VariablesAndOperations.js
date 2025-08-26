@@ -51,22 +51,34 @@ Question 1. Creating & 'console.log()'ing variables \n`);
  * Step 6: Create a variable to hold a street address.
  * ↓ YOUR CODE HERE ↓ */
 
-console.log("Step 1:  Number of Seats on a Plane");
+var seatsAvailable = 27;
+
+var costOfGroceries = 123.76;
+
+var middleInitial = "S";
+
+var isHotOutside = true;
+
+var firstName = "Hamiltion";
+
+var streetAddress = "1814 Brook Grove Drive"
+
+console.log(seatsAvailable);
 
 
-console.log("Step 2:  Cost of Groceries");
+console.log(costOfGroceries);
 
 
-console.log("Step 3:  Middle Initial");
+console.log(middleInitial);
 
 
-console.log("Step 4:  Is it Hot Outside?");
+console.log(isHotOutside);
 
 
-console.log("Step 5:  First Name");
+console.log(firstName);
 
 
-console.log("Step 6:  Street Address");
+console.log(streetAddress);
 
 
 /*-------------------------------------------------------*/
@@ -86,20 +98,28 @@ Question 2. Creating & 'console.log()'ing variables \n`);
 //	A customer booked 2 plane seats. Remove 2 seats from the available seats variable
 //  ↓ YOUR CODE HERE ↓
 
+    console.log(seatsAvailable -=2)
+
 
     console.log('Buy a Candy Bar:')
 //	Impulse candy bar purchase! Add 2.15 to the grocery total
 //  ↓ YOUR CODE HERE ↓
+
+    console.log(costOfGroceries += 2.15)
 
 
     console.log('Fix a Birth Certificate:')
 //	A birth certificate was printed incorrectly, change the middle initial to something else
 //  ↓ YOUR CODE HERE ↓
 
+    console.log(middleInitial = "M")
+
 
     console.log('Changing Seasons:')
 //	The season has changed, update the hot outside variable	to be opposite of what it was
 //  ↓ YOUR CODE HERE ↓
+
+    console.log(isHotOutside = false)
     
 
     console.log('Full Name:')
@@ -107,12 +127,15 @@ Question 2. Creating & 'console.log()'ing variables \n`);
 //  first name, the middle initial, and a last name of your choice
 //  ↓ YOUR CODE HERE ↓
 
+    console.log(fullName = firstName + middleInitial + "Sampson")
+
 
     console.log('Introduce a Customer:')
 //	Print a line to the console that introduces the customer 
 //	including the name, and saying that they live at the address variable
 //  ↓ YOUR CODE HERE ↓
 
+console.log('Introducing customer ' + fullName +' who lives at ' + streetAddress)
 
 
     console.log('-----------Finished------------')
