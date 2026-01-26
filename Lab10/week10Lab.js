@@ -41,10 +41,32 @@ Part 1: Create a form with only JavaScript`)
            You should now have a label and a input on your website.
            Do the same steps, appending a label/input for Email, and a submit button to your form.
  * ↓ YOUR CODE HERE ↓ */
+let myForm = document.createElement('form');
+let myLabel = document.createElement('label');
+let myInput = document.createElement('input');
 
-// console.log(myForm)
+myLabel.innerHTML = 'Name';
+
+myForm.append(myLabel);
+myLabel.append(myInput);
+document.body.append(myForm);
+
+let emailLabel = document.createElement('label');
+let emailInput = document.createElement('input');
+emailLabel.innerHTML = 'Email';
+
+myForm.append(emailLabel);
+myForm.append(emailInput);
+
+let submitButton = document.createElement('button');
+submitButton.innerHTML = "Submit";
+
+myForm.append(submitButton);
+
+
+ console.log(myForm)
 //Question: Besides changing the innerHTML, what other HTML things can we change using JavaScript?
-//Answer:
+//Answer: classes, ids, CSS, styles, values, properties, etc....a whole lot!
 
 /*------------------------ Styling a form with only JavaScript------------------------*/
 console.log(`-------------------------- 
@@ -54,14 +76,21 @@ Part 2: Styling our form with only JavaScript`)
  *  Hint: element.style.cssProperty = ''
  *
  *  Step 1: Change the background color of your form to your favorite color.
- *         (you can use an accepted string, hex (ex: #DBF9FC) or rgb, (ex: rgb(255,122,89)))
+ *         (you can use an accepted string, hex (ex: #1c4632) or rgb, (ex: rgb(255,122,89)))
  *  Step 2: Change the font color so it's readable over your background color
  *  Step 3: Give your form a display of flex, a flex-direction of column, and a max-width of 250px
  *
  * ↓ YOUR CODE HERE ↓ */
 
+myForm.style.backgroundColor = 'hotpink';
+myForm.style.color = 'white';
+myForm.style.display = 'flex';
+myForm.style.flexDirection = 'column';
+myForm.style.maxWidth = '250px'
+
+
 //Question: Do you prefer styling with JavaScript or CSS?
-//Answer:
+//Answer: I honestly don't remember what it was like to style in CSS but I imagine that it is nice to not have so many documents. JS seems succint
 
 /*------------------------ Creating a table with only JavaScript ------------------------*/
 console.log(`-------------------------- 
@@ -79,11 +108,26 @@ Part 3: Creating a table with only JavaScript`)
 
  * Final Step: Style your table using JavaScript starting with a border. You may need to target more element/nodes than we did with myTable.
  * ↓ YOUR CODE HERE ↓ */
+let myTable = document.createElement('table')
+let myTr = document.createElement('tr')
+let myTdName = document.createElement('td')
+let myTdEmail = document.createElement('td')
 
-// console.log(myTable)
+myTdName.innerHTML = 'Name'
+myTdEmail.innerHTML = 'Email'
+
+myTable.append(myTr)
+myTr.append(myTdName)
+myTr.append(myTdEmail)
+document.body.append(myTable)
+
+myTable.style.border = '1px solid black'
+
+ console.log(myTable)
 //Question: While this is clearly a more round-about way of making a table, how can using JavaScript in this way
 //          more beneficial than HTML?
-//Answer:
+//Answer: HTML elements are static - I can't add/remove any elements after it's already been written.
+//        With JavaScript, I could add more elements/information to a table/form on the click of a button.
 
 /*------------------------ Changing our body background on click ------------------------*/
 console.log(`-------------------------- 
@@ -103,6 +147,14 @@ Part 4: Changing our background on click`)
  * Step 7: Click the button in your index.html and see the background change!
  *
  * ↓ YOUR CODE HERE ↓ */
+let btn = document.getElementById('myButton');
+
+btn.addEventListener('click', () => {
+   document.body.style.backgroundColor = `rgb(${Math.random() * 255}, ${
+    Math.random() * 255
+  }, ${Math.random() * 255})`
+})
+
 
 //Question: What other event listeners are there?
 //             Try them out by replacing 'click' in your function above!
