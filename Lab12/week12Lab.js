@@ -76,6 +76,8 @@ Part 1: Setup your JSON server`)
  *
  * ↓ YOUR CODE HERE ↓ */
 
+
+
 /*------------------------ Part 2: HTTP Verb: GET ------------------------*/
 console.log(
   `-------------------------- 
@@ -91,6 +93,36 @@ Part 2: GET and displaying the information`
  *         Reminder: While you are not required to, the lab solution uses a <table>
  *
  * ↓ YOUR CODE HERE ↓ */
+const URL = 'http://localhost:3000/studentRoster'
+
+async function fetchStudentData() {
+  const response = await fetch(URL)
+  const data = await response.json()
+
+  data.forEach(student => {
+    //create a table row for each student
+    const row = `
+    <tr>
+      <td>${student.fullName}</td>
+      <td>${student.researchAssignment}</td>
+      <td>${student.id}</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+      </td>
+      <td>
+        <button class="delete-btn">Delete</button>
+      </td>
+    </tr>;
+    //Append to table body`
+    $('tbody').append(row);
+  });
+
+  return data;
+
+}
+
+fetchStudentData()
+
 
 /*------------------------ Part 3: HTTP Verb: POST ------------------------*/
 console.log(
@@ -116,6 +148,69 @@ Part 3: POST and adding new students`
  *         Your button should now post a new user on click.
  *
  * ↓ YOUR CODE HERE ↓ */
+
+async function submitNewStudent(event) {
+  event.preventDefault(); // Stop form from reloading page
+  
+  const URL = 'http://localhost:3000/studentRoster';
+  
+  // Create the new student object
+  const newStudent = {
+    fullName: document.getElementById('name').value,
+    researchAssignment: document.getElementById('animal').value
+  };
+  
+  try {
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newStudent)
+    });
+    
+    const data = await response.json(); // Server returns the new student with ID
+    
+    // Add the new row to the table
+    const row = `
+    <tr>
+      <td>${data.fullName}</td>
+      <td>${data.researchAssignment}</td>
+      <td>${data.id}</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+      </td>
+      <td>
+        <button class="delete-btn">Delete</button>
+      </td>
+    </tr>`;
+    
+    document.querySelector('tbody').insertAdjacentHTML('beforeend', row);
+    
+    // Clear the form
+    document.getElementById('name').value = '';
+    document.getElementById('animal').value = '';
+    
+  } catch (error) {
+    console.error('Error submitting student:', error);
+  }
+}
+
+// Attach to form submit event
+document.querySelector('form').addEventListener('submit', submitNewStudent);
+
+
+/*
+$('#submit').click(function () {
+  event.preventDefault();
+
+  $.post(endURL,{
+    fullName: $('#name').val(),
+    researchAssignment: $('#animal').val()
+  }).then(data => {
+    console.log('Posted successfully:', data);
+  });
+})
+*/
+
 
 /*------------------------ Part 4: HTTP Verb: DELETE ------------------------*/
 console.log(
@@ -149,7 +244,37 @@ Part 4: DELETE and deleting individual students`
  *         Your elements should now be getting deleted!
  *
  * ↓ YOUR CODE HERE ↓ */
-
+/*
+// Add event listener to the tbody (event delegation)
+document.querySelector('tbody').addEventListener('click', async function(event) {
+  // Check if the clicked element is a delete button
+  if (event.target.classList.contains('delete-btn')) {
+    
+    // Get the row that contains the button
+    const row = event.target.closest('tr');
+    
+    // Get the student ID from the row (it's in the 3rd <td>)
+    const studentId = row.children[2].textContent;
+    
+    const URL = `http://localhost:3000/studentRoster/${studentId}`;
+    
+    try {
+      const response = await fetch(URL, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        // Remove the row from the DOM
+        row.remove();
+        console.log('Student deleted successfully');
+      }
+      
+    } catch (error) {
+      console.error('Error deleting student:', error);
+    }
+  }
+});
+*/
 /*------------------------ HTTP Verb: UPDATE ------------------------*/
 console.log(
   `-------------------------- 
@@ -173,6 +298,99 @@ Part 4: PUT and updating the information`
  *         do the updateUser function on click.
  *
  * ↓ YOUR CODE HERE ↓ */
+
+// Add to your tbody click event listener (alongside delete logic)
+document.querySelector('tbody').addEventListener('click', async function(event) {
+  
+  // DELETE BUTTON (your existing code)
+  if (event.target.classList.contains('delete-btn')) {
+     const row = event.target.closest('tr');
+    
+    // Get the student ID from the row (it's in the 3rd <td>)
+    const studentId = row.children[2].textContent;
+    
+    const URL = `http://localhost:3000/studentRoster/${studentId}`;
+    
+    try {
+      const response = await fetch(URL, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        // Remove the row from the DOM
+        row.remove();
+        console.log('Student deleted successfully');
+      }
+      
+    } catch (error) {
+      console.error('Error deleting student:', error);
+    }
+  }
+  
+  // EDIT BUTTON
+  if (event.target.classList.contains('edit-btn')) {
+    const row = event.target.closest('tr');
+    const studentId = row.children[2].textContent;
+    const currentName = row.children[0].textContent;
+    const currentAnimal = row.children[1].textContent;
+    
+    // Replace table cells with input fields
+    row.children[0].innerHTML = `<input type="text" value="${currentName}" class="edit-name">`;
+    row.children[1].innerHTML = `<input type="text" value="${currentAnimal}" class="edit-animal">`;
+    
+    // Change Edit button to Save button
+    event.target.textContent = 'Save';
+    event.target.classList.remove('edit-btn');
+    event.target.classList.add('save-btn');
+  }
+  
+  // SAVE BUTTON
+  if (event.target.classList.contains('save-btn')) {
+    const row = event.target.closest('tr');
+    const studentId = row.children[2].textContent;
+    
+    // Get the new values from inputs
+    const newName = row.querySelector('.edit-name').value;
+    const newAnimal = row.querySelector('.edit-animal').value;
+    
+    const URL = `http://localhost:3000/studentRoster/${studentId}`;
+    
+    try {
+      const response = await fetch(URL, {
+        method: 'PUT',  // or 'PATCH'
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          fullName: newName,
+          researchAssignment: newAnimal
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Replace inputs with updated text
+        row.children[0].textContent = data.fullName;
+        row.children[1].textContent = data.researchAssignment;
+        
+        // Change Save button back to Edit button
+        event.target.textContent = 'Edit';
+        event.target.classList.remove('save-btn');
+        event.target.classList.add('edit-btn');
+      }
+      
+    } catch (error) {
+      console.error('Error updating student:', error);
+    }
+  }
+});
+
+/*
+How it works:
+
+Edit button clicked → Converts text to input fields, button changes to "Save"
+Save button clicked → Sends PUT request, updates server, converts inputs back to text
+Uses PUT method to update the entire student object
+*/
 
 console.log(`-----------Finished------------`)
 
